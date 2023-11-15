@@ -5,7 +5,7 @@ const cloudinary = require("cloudinary").v2;
 
 
 
-
+// create product
 const createProduct = asyncHandler(async(req, res) =>{
     const {name, sku, category, quantity, price, description} = req.body
 
