@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const protectDeletedUser = asyncHandler (async(req, res, next) => {
     try {
+        // check if login token exist
         const token = req.cookies.token
         if(!token) {
             res.status(401) 
@@ -16,9 +17,9 @@ const protectDeletedUser = asyncHandler (async(req, res, next) => {
         const user = await User.findById(verifiedToken.id).select("-password")
 
         if(!user) {
-            res.json(false);
+          return  res.json(false);
         } else{
-            res.json(true);
+          return  res.json(true);
         }
         
         
@@ -27,6 +28,7 @@ const protectDeletedUser = asyncHandler (async(req, res, next) => {
         res.status(200).json(false)
        
     }
+    
 })
 
 module.exports = protectDeletedUser;
