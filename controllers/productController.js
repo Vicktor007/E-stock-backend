@@ -75,22 +75,8 @@ const getProduct = asyncHandler(async (req, res) => {
   });
 
 
+
 // Delete Product
-// const deleteProduct = asyncHandler(async (req, res) => {
-//     const product = await Product.findById(req.params.id);
-//     // if product doesnt exist
-//     if (!product) {
-//       res.status(404);
-//       throw new Error("Product not found");
-//     }
-//     // Match product to its user
-//     if (product.user.toString() !== req.user.id) {
-//       res.status(401);
-//       throw new Error("User not authorized");
-//     }
-//     await Product.findByIdAndDelete(req.params.id);
-//     res.status(200).json({ message: "Product deleted." });
-// });
 
 const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
@@ -129,129 +115,6 @@ const deleteProduct = asyncHandler(async (req, res) => {
   await Product.findByIdAndDelete(req.params.id);
   res.status(200).json({ message: "Product and image deleted." });
 });
-
-// Update product
-// const updateProduct = asyncHandler(async(req, res) =>{
-//     const {name, category, quantity, price, description} = req.body;
-//     const {id} = req.params
-
-//     const product = await Product.findById(id)
-//     // if product doesnt exist
-//     if (!product) {
-//         res.status(404);
-//         throw new Error("Product not found");
-//       }
-//       // Match product to its user
-//     if (product.user.toString() !== req.user.id) {
-//         res.status(401);
-//         throw new Error("User not authorized");
-//       }
-
-   
-// // handle image upload
-//      let fileData = {}
-//      if(req.file) {
-//         // save image to cloudinary
-//         let uploadedFile;
-//         try {
-//             uploadedFile = cloudinary.uploader.upload(req.file.path, {folder: "E-stock", resource_type: "image"})
-//         } catch (error) {
-//             res.status(500)
-//             throw new Error("Image could not be uploaded")
-//         }
-//         fileData = {
-//             fileName: req.file.originalname,
-//             filePath: (await uploadedFile).secure_url,
-//             fileType: req.file.mimetype,
-//             fileSize: fileSizeFormatter(req.file.size, 2),
-//         }
-//      }
-
-
-//     // update product
-
-//     const updatedProduct = await Product.findByIdAndUpdate(
-//         {id: id},
-//         {
-//             name,
-//             category,
-//             quantity,
-//             price,
-//             description,
-//             image: fileData || product.image
-//         },
-//         {
-//             new: true,
-//             runValidators: true
-//         }
-//     )
-//     res.status(200).json(updatedProduct);
-// });
-
-
-
-// Update Product
-// const updateProduct = asyncHandler(async (req, res) => {
-//     const { name, category, quantity, price, description } = req.body;
-//     const { id } = req.params;
-  
-//     const product = await Product.findById(id);
-  
-//     // if product doesnt exist
-//     if (!product) {
-//       res.status(404);
-//       throw new Error("Product not found");
-//     }
-//     // Match product to its user
-//     if (product.user.toString() !== req.user.id) {
-//       res.status(401);
-//       throw new Error("User not authorized");
-//     }
-  
-//     // Handle Image upload
-//     let fileData = {};
-//     if (req.file) {
-//       // Save image to cloudinary
-//       let uploadedFile;
-//       try {
-//         uploadedFile = await cloudinary.uploader.upload(req.file.path, {
-//           folder: "E-stock",
-//           resource_type: "image",
-//         });
-//       } catch (error) {
-//         res.status(500);
-//         throw new Error("Image could not be uploaded");
-//       }
-  
-//       fileData = {
-//         fileName: req.file.originalname,
-//         filePath: uploadedFile.secure_url,
-//         fileType: req.file.mimetype,
-//         fileSize: fileSizeFormatter(req.file.size, 2),
-//       };
-//     }
-  
-//     // Update Product
-//     const updatedProduct = await Product.findByIdAndUpdate(
-//       { _id: id },
-//       {
-//         name,
-//         category,
-//         quantity,
-//         price,
-//         description,
-//         image: Object.keys(fileData).length === 0 ? product?.image : fileData,
-//         // image: fileData || product.image
-//         //         },
-//       },
-//       {
-//         new: true,
-//         runValidators: true,
-//       }
-//     );
-  
-//     res.status(200).json(updatedProduct);
-//   });
 
 
 
@@ -326,29 +189,6 @@ const updateProduct = asyncHandler(async (req, res) => {
   );
 
   res.status(200).json(updatedProduct);
-
-  // Update Product
-// const updatedProduct = await Product.findByIdAndUpdate(
-//   { _id: id },
-//   {
-//     name,
-//     category,
-//     quantity,
-//     price,
-//     description,
-//     image: null, // Set image to null
-//   },
-//   {
-//     new: true,
-//     runValidators: true,
-//   }
-// );
-
-// // Update the image field with the new image data
-// updatedProduct.image = Object.keys(fileData).length === 0 ? product?.image : fileData;
-// await updatedProduct.save();
-
-// res.status(200).json(updatedProduct);
 
 });
 

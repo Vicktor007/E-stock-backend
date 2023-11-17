@@ -162,54 +162,8 @@ const loginStatus = asyncHandler(async(req, res) => {
 })
 
 
-// const loginStatus = asyncHandler(async(req, res) => {
-//     const token = req.cookies.token;
-//     if(!token) {
-//         return res.json(false);
-//     }
-//     //    verify token
-//     const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
-//     if (verifiedToken) {
-//         return res.json(true);
-           
-//         }
-//         return res.json(false);
-    
-// })
 
-
-// update user information
-// const updateUser = asyncHandler (async (req, res) => {
-//     const user = await User.findById(req.user._id)
-
-    
-//         if (user) {
-//             const {name, email, phone, photo, bio} = user;
-         
-//                user.email = email;
-//                user.name = req.body.name || name;
-//                user.phone = req.body.phone || phone;
-//                user.bio = req.body.bio || bio;
-//                user.photo = req.body.photo || photo;
-
-//                const updatedUser = await user.save();
-//                res.status(200).json({
-//                 // _id: updatedUser._id,
-//                 name: updatedUser.name, 
-//                 email: updatedUser.email, 
-//                 phone: updatedUser.phone, 
-//                 photo: updatedUser.photo, 
-//                 bio: updatedUser.bio,
-//                });
-                  
-           
-//         } else {
-//             res.status(404)
-//             throw new Error("User not found");
-//         }
-
-    
-// })
+// update user data
 
 const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
@@ -237,6 +191,7 @@ const updateUser = asyncHandler(async (req, res) => {
     }
   });
   
+
 //   change password
 const changePassword = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
@@ -267,59 +222,8 @@ const changePassword = asyncHandler(async (req, res) => {
     }
 })
 
-// reset password function 
-// const forgotPassword = asyncHandler (async(req, res) => {
-//     const {email} = req.body
-//     const user = await User.findOne({email})
 
-//     if (!user) {
-//         res.status(404)
-//         throw new Error("User does not exist")
-//     }
-
-//     // create reset token
-//     let resetToken = crypto.randomBytes(32).toString("hex") + user._id;
-
-// // hash token before savng to database
-// const hashedToken = crypto
-// .createHash("sha256")
-// .update(resetToken)
-// .digest("hex");
-
-// // save token to database
-// await new Token({
-//     userId: user._id,
-//     token: hashedToken,
-//     createdAt: Date.now(),
-//     expiresAt: Date.now() + 30 * (60 * 1000) //thirty minutes
-// }).save()
-
-// // construct reset url
-// const resetUrl = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`
-
-// // reset password message 
-// const message = `
-// <h2>Hello ${user.name}</h2>
-// <p>Please use the url below to reset your password</p>
-// <p>This link is only valid for 30 minutes.</p>
-// <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
-// <p>Thank you</p>
-// <p>E-stock Team</p>
-// `;
-
-// const subject = "Password Reset Request";
-// const send_to = user.email;
-// const sent_from = process.EMAIL_USER;
-
-// try {
-//     await sendEmail(subject, message, send_to, sent_from)
-//     res.status(200).json({success: true, message: "Reset Email Sent"})
-// } catch (error) {
-//     res.status(500)
-//     throw new Error("Email not sent, please try again")
-// }
-// })
-
+// forgotten password reset
 const forgotPassword = asyncHandler(async (req, res) => {
     const { email } = req.body;
     const user = await User.findOne({ email });
