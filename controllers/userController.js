@@ -369,6 +369,55 @@ const deleteAccount = async (req, res) => {
 };
 
 
+// const deleteAccount = async (req, res) => {
+//   try {
+//     // Get user id from request
+//     const userId = req.user._id;
+
+//     // Find all products associated with the user
+//     const products = await Product.find({ user: userId });
+
+//     // Delete each product image from Cloudinary
+//     for (let product of products) {
+//       if (product.image.filePath) {
+//         try {
+//           // Extract the public ID of the image from the file path
+//           let filePath = product.image.filePath;
+//           let fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
+//           let publicId = "E-stock/" + fileName.split(".")[0];
+
+//           // Delete the image using the public ID
+//           let result = await cloudinary.uploader.destroy(publicId);
+
+//           if (result.result !== "ok") {
+//             throw new Error("Failed to delete image from Cloudinary");
+//           }
+//         } catch (error) {
+//           res.status(500);
+//           throw new Error("Image could not be deleted from Cloudinary");
+//         }
+//       }
+//     }
+
+//     // Delete all products associated with the user from the database
+//     await Product.deleteMany({ user: userId });
+
+//     // Delete the user
+//     await User.findByIdAndDelete(userId);
+
+//     res.status(200).json({
+//       status: 'success',
+//       message: 'Account and all associated products and images have been deleted',
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       status: 'error',
+//       message: 'An error occurred while trying to delete the account',
+//     });
+//   }
+// };
+
+
 module.exports = {
     registerUser,
     loginUser,
